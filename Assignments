@@ -1,10 +1,22 @@
 /*with this data try to find out sum of balance*/
+SELECT sum(balance) FROM bank_details;
 /*try to find out average of balance*/
+SELECT avg(balance) FROM bank_details;
 /*try to find out who is having minimum balance*/
+SELECT * FROM bank_details order by balance limit 1;
+SELECT * FROM bank_details WHERE balance=(SELECT MIN(balance) FROM bank_details);
 /*try to find out who is having maximum balance*/
+SELECT * FROM bank_details order by balance DESC limit 1;
+SELECT * FROM bank_details WHERE balance=(SELECT MAX(balance) FROM bank_details);
 /*try to prepare a list of all the person who is having loan*/
+SELECT * FROM bank_details WHERE loan='yes';
 /*try to find out average balance for all the people whose job role is admin*/
+SELECT AVG(balance) FROM bank_details WHERE job='admin.';
 /*try to find out a record without job whose age is below 45*/
+SELECT * FROM bank_details WHERE job='unknown' AND age<45;
 /*try to find out a record where education is primarily and person is jobless*/
+SELECT * FROM bank_details WHERE job='unknown' AND education='primary'; 
 /*try to find out a record whose bank account is having a negative balance*/
+SELECT * FROM bank_details WHERE balance<0;
 /*try to find out record who is not having house at all along with there balance*/
+SELECT housing,balance FROM bank_details WHERE housing='no';
