@@ -1,0 +1,37 @@
+DELIMITER &&
+CREATE PROCEDURE select_rec()
+BEGIN
+SELECT * FROM bank_details;
+END &&
+
+call select_rec();
+
+DELIMITER &&
+CREATE PROCEDURE bal_max()
+BEGIN
+SELECT * FROM bank_details WHERE balance=(SELECT MAX(balance) FROM bank_details);
+END &&
+
+call bal_max();
+
+DELIMITER &&
+CREATE PROCEDURE avg_bal_jobrole(IN pre varchar(30))
+BEGIN
+SELECT AVG(balance) FROM bank_details WHERE job=pre;
+END &&
+CALL avg_bal_jobrole('admin.');
+CALL avg_bal_jobrole('retired');
+CALL avg_bal_jobrole('unknown');
+
+DELIMITER &&
+CREATE PROCEDURE sel_edu_job(IN v1 varchar(30), in v2 varchar(30))
+BEGIN
+SELECT * FROM bank_details WHERE  education=v1 AND job=v2; 
+END &&
+
+CALL sel_edu_job('tertiary','retired');
+CALL select_rec();
+
+CREATE VIEW bank_view as SELECT age,job,marital,education,balance from bank_details;
+
+SELECT AVG(balance) FROM bank_view WHERE job='admin.';
